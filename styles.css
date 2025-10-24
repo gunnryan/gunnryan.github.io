@@ -1,0 +1,368 @@
+:root{
+  --bg:#0b0d0e; /* gunmetal */
+  --panel:#0f1112; /* slightly darker panel */
+  --muted:#9aa2a4; /* softer readable gray */
+  --text:#e6ecec; /* soft white */
+  --accent:#FF6B00; /* ember orange (updated) */
+  --link:#FF6B00;
+  --line:#23272a;
+  --glass: rgba(255,255,255,0.02);
+  --glow: rgba(255,107,0,0.08);
+}
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  background: var(--bg);
+  color:var(--muted);
+  font-family: 'Exo 2', 'Orbitron', system-ui, -apple-system, 'Segoe UI', Roboto, 'Eurostile', sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  display:flex;
+  align-items:flex-start; /* ensure header isn't vertically centered */
+  justify-content:center;
+  padding:24px 16px; /* slightly tighter so more fits at 100% */
+}
+
+.wrap{
+  width:100%;
+  max-width:1100px;
+  margin:0 auto;
+  background:transparent;
+  border-radius:10px;
+  display:flex;
+  flex-direction:column;
+  gap:22px; /* slightly tighter */
+  position:relative;
+  isolation:isolate;
+}
+
+/* header / logo vignette */
+.brand{position:relative;display:flex;align-items:center;gap:16px}
+.logo-img{
+  width:150px;height:auto;object-fit:contain;display:block;position:relative;z-index:2;
+  background:transparent;border:0; /* remove box/frame */
+  box-shadow:none; /* remove inset shadow so logo transparency shows */
+}
+.brand::before{
+  /* faint vignette behind the logo — keep subtle and circular only */
+  content:"";position:absolute;left:6px;top:6px;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle at 40% 30%, rgba(255,107,0,0.04), rgba(255,107,0,0.01) 18%, transparent 38%);
+  filter:blur(8px);opacity:0.9;z-index:1;pointer-events:none;
+}
+
+.wordmark h1{font-family: 'Orbitron', 'Eurostile', sans-serif; margin:0; color:var(--text); letter-spacing:4px; font-weight:700; font-size:18px}
+.wordmark .tag{margin:0;font-size:12px;color:var(--muted);opacity:0.95;letter-spacing:0.2px}
+
+/* hero layout */
+.hero{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start} /* slightly narrower right column to avoid overflow */
+.copy{padding:36px 40px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.004), rgba(255,255,255,0.002));border:1px solid rgba(255,255,255,0.02);box-shadow:inset 0 1px 0 rgba(255,255,255,0.01), 0 6px 20px rgba(0,0,0,0.45)}
+.subheadline{color:var(--text);font-size:18px;line-height:1.7;max-width:60ch}
+
+/* CTA button — subtle glow and hover */
+.cta{display:inline-block;margin-top:28px;padding:12px 20px;border-radius:8px;background:transparent;color:var(--accent);border:1px solid rgba(255,107,0,0.16);text-decoration:none;font-weight:700;letter-spacing:0.6px;transition:all .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.01)}
+.cta:hover{background:rgba(255,107,0,0.04);box-shadow:0 8px 36px rgba(255,107,0,0.06), inset 0 0 18px rgba(255,107,0,0.03);color:var(--accent)}
+
+/* link color update (ensure mailto and other links use brand color) */
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* panels */
+.sidepanels{display:flex;flex-direction:column;gap:18px}
+.panel{padding:22px;background:linear-gradient(180deg, rgba(255,255,255,0.006), rgba(255,255,255,0.002));border:1px solid rgba(255,255,255,0.02);border-radius:8px;color:var(--text);box-shadow:0 8px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02)}
+.panel h3{margin:0 0 8px 0;color:var(--text);font-size:15px}
+.panel p{margin:0 0 12px 0;color:var(--muted);font-size:13px;line-height:1.5}
+
+/* divider */
+.divider{opacity:0.06; border:0; height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent); margin:22px 0}
+
+/* glowing divider variant */
+.divider-glow{background:linear-gradient(90deg, transparent, rgba(255,107,0,0.1), transparent);box-shadow:0 1px 18px rgba(255,107,0,0.03)}
+
+/* Restored orange dividers to match brand accent */
+.divider{
+  height:1px;
+  border:0;
+  margin:22px 0;
+  background:linear-gradient(90deg, transparent 8%, rgba(255,107,0,0.10) 50%, transparent 92%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+  opacity:1;
+}
+
+.divider.divider-glow{
+  height:2px;
+  background:linear-gradient(90deg, rgba(255,107,0,0.06) 0%, rgba(255,107,0,0.14) 50%, rgba(255,107,0,0.06) 100%);
+  box-shadow:0 8px 28px rgba(255,107,0,0.04);
+}
+
+/* ensure the lower divider near footer is visible again */
+.divider:last-of-type{ opacity:1 }
+
+/* featured build */
+.featured{display:flex;justify-content:center;padding:8px 0}
+.featured-inner{width:100%;max-width:1100px;padding:16px}
+.product{display:flex;align-items:center;gap:18px}
+.product-sil{width:260px;height:auto;display:block}
+.product-caption{color:var(--muted);font-size:13px;margin-top:8px}
+
+/* ethos */
+.ethos{display:flex;justify-content:center;padding:8px 0}
+.ethos-inner{width:100%;max-width:900px;padding:8px;text-align:center}
+.ethos h3{color:var(--text);margin:0 0 8px 0}
+.ethos p{color:var(--muted);margin:0}
+
+/* footer tagline */
+.foot-tag{color:var(--muted);font-size:12px;opacity:0.95;margin-right:12px}
+
+/* thin glowing divider above footer */
+.sitefoot{display:flex;justify-content:space-between;padding:16px 6px;color:var(--muted);font-size:13px;position:relative}
+.sitefoot::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg, transparent, rgba(255,107,0,0.06), transparent);box-shadow:0 1px 8px rgba(255,107,0,0.02);opacity:0.95}
+
+/* icons */
+.sitefoot .icons{display:flex;gap:18px;align-items:center}
+.icon{opacity:0.95;display:inline-flex}
+.icon svg{stroke:var(--muted);transition:stroke .18s ease, transform .18s ease}
+.icon:hover svg{stroke:var(--accent);transform:translateY(-2px)}
+
+/* small fade-in for content */
+.fade-in{opacity:0;transform:translateY(6px);animation:fadeUp .7s ease forwards}
+.fade-in-delayed{animation-delay:.12s}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+
+/* subtle hover for panels */
+.panel:hover{box-shadow:0 14px 40px rgba(0,0,0,0.65), inset 0 0 30px rgba(255,107,0,0.01)}
+
+/* mission log */
+.mission-inner{width:100%;max-width:900px;margin:0 auto;padding:8px}
+.mission-card{background:linear-gradient(180deg, rgba(255,255,255,0.004), rgba(255,255,255,0.002));border:1px solid rgba(255,255,255,0.02);padding:14px;border-radius:8px;color:var(--muted);box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
+.mission-card h4{margin:0 0 8px 0;color:var(--text);font-size:15px}
+.mission-card p{margin:0;color:var(--muted);font-size:13px}
+
+/* callsign form */
+.callsign-form{margin-top:10px}
+.callsign-row{display:flex;gap:8px}
+.callsign-input{flex:1;padding:10px 12px;border-radius:6px;border:1px solid rgba(255,107,0,0.10);background:var(--panel);color:var(--text);box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);outline:none;transition:box-shadow .18s ease, border-color .18s ease}
+.callsign-input::placeholder{color:rgba(255,255,255,0.35)}
+.cta.small{padding:8px 12px;font-size:13px;border-radius:6px}
+.callsign-row .cta.small{border:1px solid rgba(255,107,0,0.12);transition:box-shadow .18s ease, transform .12s ease}
+.callsign-row .cta.small:hover{box-shadow:0 10px 36px rgba(255,107,0,0.06);transform:translateY(-2px)}
+
+/* contact line above footer */
+.contact-line{display:flex;justify-content:center;color:var(--muted);font-size:13px;margin-top:4px;margin-bottom:6px}
+.contact-line a{color:var(--link);text-decoration:none}
+.contact-line a:hover{text-decoration:underline}
+
+/* reveal on scroll */
+.fade-in{opacity:0;transform:translateY(8px);transition:opacity .6s ease, transform .6s ease}
+.fade-in.is-visible{opacity:1;transform:none}
+.fade-in-delayed{transition-delay:.12s}
+
+/* hide possible crosshair element (bottom-left) */
+.crosshair{display:none}
+
+/* footer subtags */
+.foot-subtag{color:var(--muted);font-size:12px;opacity:0.9;margin-left:12px}
+
+/* accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .fade-in, .fade-in-delayed, .cta{animation:none;transition:none}
+}
+
+/* ensure images don't show broken icon (hide broken) and keep layout */
+img{image-rendering:optimizeQuality}
+img:not([src]){display:none}
+
+/* responsive tweaks */
+@media (max-width:920px){
+  .hero{grid-template-columns:1fr;}
+  .sidepanels{flex-direction:row}
+  .panel{flex:1}
+  .wrap{padding:18px}
+}
+
+/* FAQ styles */
+.faq-inner{width:100%;max-width:1100px;margin:0 auto;padding:16px}
+.faq-inner h3{color:var(--text);margin:0 0 12px 0}
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{background:var(--panel);border:1px solid rgba(255,255,255,0.02);border-left:3px solid rgba(255,107,0,0.04);padding:12px;border-radius:8px;overflow:hidden}
+.faq-toggle{width:100%;background:transparent;border:0;color:var(--text);display:flex;justify-content:space-between;align-items:center;padding:0;font-size:15px;cursor:pointer}
+.faq-toggle .q{font-weight:600}
+.faq-toggle .plus{color:var(--accent);font-weight:700;margin-left:12px}
+.faq-content{color:var(--muted);margin-top:8px;max-height:0;overflow:hidden;transition:max-height .36s ease, opacity .28s ease;opacity:0}
+.faq-content.open{max-height:480px;opacity:1}
+.faq-item:hover{box-shadow:0 10px 30px rgba(0,0,0,0.6), 0 0 24px rgba(255,107,0,0.02)}
+
+/* smooth scroll target tweak */
+:target{scroll-margin-top:20px}
+.join-status{
+  display:block;
+  margin:12px 0 0;
+  padding:6px 8px;
+  color:var(--text);
+  font-size:14px;
+  text-align:center; /* center in the open space */
+  min-height:36px; /* reserve space so layout doesn't jump */
+  line-height:1.2;
+  opacity:0;transition:opacity .28s ease, transform .28s ease;
+}
+.join-status:empty{min-height:0}
+.join-status:not(:empty){opacity:1}
+
+/* Pre-order modal styles (matches site theme) */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  align-items:center;
+  justify-content:center;
+  background:rgba(6,7,8,0.6);
+  backdrop-filter:blur(6px) saturate(1.05);
+  z-index:2200;
+  padding:28px;
+  display:none; /* keep hidden by default; reveal when aria-hidden="false" to avoid showing on load */
+}
+.modal-overlay[aria-hidden="false"]{
+  display:flex;
+}
+
+.modal{
+  width:min(540px,calc(100% - 64px));
+  background:linear-gradient(180deg, rgba(14,16,17,0.98), rgba(9,10,11,0.98));
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow:0 18px 40px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.02);
+  padding:20px 18px;
+  border-radius:12px;
+  color:var(--text);
+}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.modal-header h4{font-family:'Orbitron',sans-serif;letter-spacing:0.6px;font-weight:600;margin:0;color:var(--text)}
+.modal-close{background:transparent;border:0;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:6px;border-radius:6px;transition:background .18s, color .18s}
+.modal-close:hover{background:rgba(255,107,0,0.06);color:var(--accent)}
+.modal-body .muted{color:var(--muted);margin-bottom:10px;font-size:0.95rem}
+
+.modal-form input,.modal-form select{
+  width:100%;
+  padding:12px 14px;
+  margin:8px 0;
+  background:var(--panel);
+  border:1px solid rgba(255,255,255,0.03);
+  color:var(--text);
+  border-radius:8px;
+  outline:none;
+  transition:box-shadow .18s, border-color .18s, transform .12s;
+}
+.modal-form input::placeholder{color:rgba(170,170,170,0.45)}
+.modal-form input:focus,.modal-form select:focus{box-shadow:0 0 0 4px rgba(255,107,0,0.06);border-color:var(--accent)}
+
+.modal-actions{display:flex;justify-content:flex-end;margin-top:10px}
+.modal-status{margin-top:10px;color:var(--muted);min-height:28px;text-align:center;transition:opacity .22s}
+
+/* small accessibility helper */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media (max-width:600px){
+  .modal{padding:16px;border-radius:10px}
+}
+
+/* Footer centering and alignment fixes */
+.contact-line{ text-align:center; margin:18px 0 8px; color:var(--muted); font-size:0.95rem }
+.sitefoot{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:18px 8px 42px;
+  text-align:center;
+  color:var(--muted);
+}
+.sitefoot .foot-tag, .sitefoot .foot-subtag{ width:100%; max-width:900px; text-align:center; margin:0 }
+.sitefoot > div{ line-height:1 }
+.sitefoot .icons{ display:flex; gap:14px; align-items:center; justify-content:center; margin-top:4px }
+.sitefoot .icons a.icon{ display:inline-flex; align-items:center; justify-content:center; padding:6px; border-radius:6px; transition:transform .14s, opacity .12s }
+.sitefoot .icons a.icon:hover{ transform:translateY(-3px); opacity:0.95 }
+
+@media (min-width:980px){
+  .sitefoot{ padding-bottom:48px }
+}
+
+/* Give the main hero copy the same subtle lift/glow as side panels on hover */
+.copy{
+  border-radius:12px;
+  transition:box-shadow .22s, transform .14s, opacity .12s;
+  will-change:transform, box-shadow;
+}
+.copy:hover{
+  transform:translateY(-6px);
+  box-shadow:0 28px 60px rgba(0,0,0,0.6), 0 6px 24px rgba(255,107,0,0.04);
+}
+
+@media (max-width:920px){
+  .copy:hover{ transform:none; box-shadow:0 12px 30px rgba(0,0,0,0.45); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .copy, .copy:hover{ transform:none; transition:none }
+}
+
+/* Header / brand animations: subtle float, pulse and ember glow */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  position:relative;
+  animation:brandFloat 6s ease-in-out infinite;
+}
+.brand::before{
+  content:'';
+  position:absolute;
+  left:-8%; top:-12%; right:-8%; bottom:-12%;
+  border-radius:14px;
+  pointer-events:none;
+  background:radial-gradient(circle at 18% 32%, rgba(255,107,0,0.06), transparent 22%);
+  opacity:0;
+  animation:brandGlow 5.6s linear infinite;
+}
+
+.logo-img{
+  border-radius:8px;
+  transition:transform .22s, filter .22s;
+  will-change:transform, filter;
+  animation:logoPulse 4s ease-in-out infinite;
+}
+.logo-img:hover{ transform:translateY(-4px) scale(1.02); filter:drop-shadow(0 20px 40px rgba(255,107,0,0.06)); }
+
+.wordmark h1{
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing:0.8px;
+  margin:0;
+  transition:text-shadow .18s;
+  animation:wordGlow 6.2s linear infinite;
+}
+
+@keyframes brandFloat{
+  0%,100%{ transform:translateY(0) }
+  50%{ transform:translateY(-3px) }
+}
+@keyframes brandGlow{
+  0%,40%{ opacity:0 }
+  45%,55%{ opacity:0.18 }
+  60%,100%{ opacity:0 }
+}
+@keyframes logoPulse{
+  0%,100%{ transform:scale(1); filter:drop-shadow(0 6px 14px rgba(0,0,0,0.6)) }
+  50%{ transform:scale(1.02); filter:drop-shadow(0 18px 40px rgba(255,107,0,0.07)) }
+}
+@keyframes wordGlow{
+  0%,86%{ text-shadow:none }
+  90%{ text-shadow:0 0 8px rgba(255,107,0,0.10) }
+  95%{ text-shadow:0 0 14px rgba(255,107,0,0.14) }
+  100%{ text-shadow:none }
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce){
+  .brand, .brand::before, .logo-img, .wordmark h1{ animation:none !important; transition:none !important; transform:none !important }
+}
